@@ -1,3 +1,6 @@
+logging.level:
+  org.springframework.jdbc: debug
+
 spring:
   profiles:
     active: local
