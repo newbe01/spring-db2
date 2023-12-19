@@ -1,5 +1,6 @@
 logging.level:
   org.springframework.jdbc: debug
+  itemservice.db.repository.mybatis: trace
 
 spring:
   profiles:
@@ -7,3 +8,9 @@ spring:
   datasource:
     url: jdbc:h2:tcp://localhost/~/test
     username: sa
+
+#MyBatis
+mybatis:
+  type-aliases-package: itemservice.db.domain
+  configuration:
+    map-underscore-to-camel-case: true
