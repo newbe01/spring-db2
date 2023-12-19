@@ -1,6 +1,7 @@
 package itemservice.db;
 
 import itemservice.db.config.JdbcTemplateV3Config;
+import itemservice.db.config.MyBatisConfig;
 import itemservice.db.repository.ItemRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
@@ -16,7 +17,8 @@ import javax.sql.DataSource;
 //@Import(MemoryConfig.class)
 //@Import(JdbcTemplateV1Config.class)
 //@Import(JdbcTemplateV2Config.class)
-@Import(JdbcTemplateV3Config.class)
+//@Import(JdbcTemplateV3Config.class)
+@Import(MyBatisConfig.class)
 @SpringBootApplication(scanBasePackages = "itemservice.db.web")
 public class DbApplication {
 
