@@ -18,12 +18,11 @@
         where id = #{id}
     </update>
 
-    <select id="findById" resultType="Item">
-        select id, item_name, price, quantity
-        from item
-        where id = #{id}
-
-    </select>
+<!--    <select id="findById" resultType="Item">-->
+<!--        select id, item_name, price, quantity-->
+<!--        from item-->
+<!--        where id = #{id}-->
+<!--    </select>-->
 
     <select id="findAll" resultType="Item">
         select id, item_name, price, quantity
@@ -36,7 +35,6 @@
                 and price &lt;= #{maxPrice}
             </if>
         </where>
-
     </select>
 
 </mapper>
