@@ -4,7 +4,7 @@ logging.level:
   itemservice.db.repository.mybatis: trace
 #  jpa log
   org.hibernate.sql: debug
-  org.hibernate.type.descriptor.sql: trace
+  org.hibernate.orm.jdbc.bind: trace
 
 spring:
   profiles:
@@ -15,9 +15,11 @@ spring:
 # jpa query
   jpa:
     properties.hibernate:
-      format_sql: true # ??, ??? SQL? ? ? ??? ?????.
-      highlight_sql: true # SQL ??? ANSI escape codes? ???? ?? ?????.
-      use_sql_comments: true # ?? ?? ???? ?? SQL ??? /* */? ??? ?????.
+      format_sql: true # 로그, 콘솔의 SQL을 좀 더 이쁘게 출력합니다.
+      use_sql_comments: true # 보다 쉬운 디버깅을 위해 SQL 내부에 /* */의 주석을 추가합니다.
+      show_sql: true
+#    hibernate:
+#      ddl-auto: create
 
 #MyBatis
 mybatis:
