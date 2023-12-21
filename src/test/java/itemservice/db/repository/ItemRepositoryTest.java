@@ -2,9 +2,12 @@ package itemservice.db.repository;
 
 import itemservice.db.domain.Item;
 import itemservice.db.repository.memory.MemoryItemRepository;
+import org.hibernate.internal.log.SubSystemLogging;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
@@ -24,6 +27,7 @@ class ItemRepositoryTest {
 
     @Autowired
     ItemRepository itemRepository;
+    Logger log = LoggerFactory.getLogger(ItemRepositoryTest.class);
 
 //    @Autowired
 //    PlatformTransactionManager transactionManager;
@@ -85,6 +89,8 @@ class ItemRepositoryTest {
         Item item1 = new Item("itemA-1", 10000, 10);
         Item item2 = new Item("itemA-2", 20000, 20);
         Item item3 = new Item("itemB-1", 30000, 30);
+
+        log.info("itemRepository :: {}", itemRepository.getClass());
 
         itemRepository.save(item1);
         itemRepository.save(item2);
