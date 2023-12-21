@@ -1,8 +1,6 @@
 package itemservice.db;
 
-import itemservice.db.config.JdbcTemplateV3Config;
-import itemservice.db.config.JpaConfig;
-import itemservice.db.config.MyBatisConfig;
+import itemservice.db.config.SpringDataJpaConfig;
 import itemservice.db.repository.ItemRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
@@ -10,9 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-
-import javax.sql.DataSource;
 
 @Slf4j
 //@Import(MemoryConfig.class)
@@ -20,7 +15,8 @@ import javax.sql.DataSource;
 //@Import(JdbcTemplateV2Config.class)
 //@Import(JdbcTemplateV3Config.class)
 //@Import(MyBatisConfig.class)
-@Import(JpaConfig.class)
+//@Import(JpaConfig.class)
+@Import(SpringDataJpaConfig.class)
 @SpringBootApplication(scanBasePackages = "itemservice.db.web")
 public class DbApplication {
 
