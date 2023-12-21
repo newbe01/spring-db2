@@ -1,6 +1,10 @@
 logging.level:
   org.springframework.jdbc: debug
+#  mybatis log
   itemservice.db.repository.mybatis: trace
+#  jpa log
+  org.hibernate.sql: debug
+  org.hibernate.type.descriptor.sql: trace
 
 spring:
   profiles:
@@ -8,6 +12,12 @@ spring:
   datasource:
     url: jdbc:h2:tcp://localhost/~/test
     username: sa
+# jpa query
+  jpa:
+    properties.hibernate:
+      format_sql: true # ??, ??? SQL? ? ? ??? ?????.
+      highlight_sql: true # SQL ??? ANSI escape codes? ???? ?? ?????.
+      use_sql_comments: true # ?? ?? ???? ?? SQL ??? /* */? ??? ?????.
 
 #MyBatis
 mybatis:
