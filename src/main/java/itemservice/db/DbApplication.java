@@ -2,6 +2,7 @@ package itemservice.db;
 
 import itemservice.db.config.QuerydslConfig;
 import itemservice.db.config.SpringDataJpaConfig;
+import itemservice.db.config.V2Config;
 import itemservice.db.repository.ItemRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
@@ -18,7 +19,8 @@ import org.springframework.context.annotation.Profile;
 //@Import(MyBatisConfig.class)
 //@Import(JpaConfig.class)
 //@Import(SpringDataJpaConfig.class)
-@Import(QuerydslConfig.class)
+//@Import(QuerydslConfig.class)
+@Import(V2Config.class)
 @SpringBootApplication(scanBasePackages = "itemservice.db.web")
 public class DbApplication {
 
