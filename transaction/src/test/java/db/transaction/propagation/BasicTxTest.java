@@ -36,7 +36,6 @@ public class BasicTxTest {
         log.info("== start tx commit ==");
         manager.commit(status);
         log.info("== commit ==");
-
     }
 
     @Test
@@ -47,6 +46,35 @@ public class BasicTxTest {
         log.info("== start tx rollback ==");
         manager.rollback(status);
         log.info("== rollback ==");
+    }
 
+    @Test
+    void double_commit() {
+        log.info("== start tx1 ==");
+        TransactionStatus tx1 = manager.getTransaction(new DefaultTransactionAttribute());
+
+        log.info("== start tx1 commit ==");
+        manager.commit(tx1);
+
+        log.info("== start tx2 ==");
+        TransactionStatus tx2 = manager.getTransaction(new DefaultTransactionAttribute());
+
+        log.info("== start tx2 commit ==");
+        manager.commit(tx2);
+    }
+
+    @Test
+    void double_commit_rollback() {
+        log.info("== start tx1 ==");
+        TransactionStatus tx1 = manager.getTransaction(new DefaultTransactionAttribute());
+
+        log.info("== start tx1 commit ==");
+        manager.commit(tx1);
+
+        log.info("== start tx2 ==");
+        TransactionStatus tx2 = manager.getTransaction(new DefaultTransactionAttribute());
+
+        log.info("== start tx2 rollback ==");
+        manager.rollback(tx2);
     }
 }
