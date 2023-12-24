@@ -76,5 +76,22 @@ public class BasicTxTest {
 
         log.info("== start tx2 rollback ==");
         manager.rollback(tx2);
+     }
+
+    @Test
+    void inner_commit() {
+        log.info("== outer tx start ==");
+        TransactionStatus outer = manager.getTransaction(new DefaultTransactionAttribute());
+        log.info("outer.isNewTx() :: {}", outer.isNewTransaction());
+
+        log.info("== inner tx start ==");
+        TransactionStatus inner = manager.getTransaction(new DefaultTransactionAttribute());
+        log.info("inner.isNewTx() :: {}", inner.isNewTransaction());    // outer 에 여해서 false
+
+        log.info("== inner tx commit ==");
+        manager.commit(inner);
+
+        log.info("== outer tx commit ==");
+        manager.commit(outer);
     }
 }
