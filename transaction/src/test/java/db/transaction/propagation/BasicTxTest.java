@@ -94,4 +94,19 @@ public class BasicTxTest {
         log.info("== outer tx commit ==");
         manager.commit(outer);
     }
+
+    @Test
+    void outer_rollback() {
+        log.info("== outer tx start ==");
+        TransactionStatus outer = manager.getTransaction(new DefaultTransactionAttribute());
+
+        log.info("== inner tx start ==");
+        TransactionStatus inner = manager.getTransaction(new DefaultTransactionAttribute());
+
+        log.info("== inner tx commit ==");
+        manager.commit(inner);
+
+        log.info("== outer tx rollback ==");
+        manager.rollback(outer);
+    }
 }
