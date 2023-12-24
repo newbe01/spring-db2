@@ -9,11 +9,14 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.UnexpectedRollbackException;
 import org.springframework.transaction.interceptor.DefaultTransactionAttribute;
 
 import javax.sql.DataSource;
+
+import static org.assertj.core.api.Assertions.*;
 
 @Slf4j
 @SpringBootTest
@@ -125,6 +128,26 @@ public class BasicTxTest {
 
         log.info("== outer tx commit ==");
 //        manager.commit(outer);
-        Assertions.assertThatThrownBy(() -> manager.commit(outer)).isInstanceOf(UnexpectedRollbackException.class);
+        assertThatThrownBy(() -> manager.commit(outer)).isInstanceOf(UnexpectedRollbackException.class);
+    }
+
+    @Test
+    void inner_rollback_requires_new() {
+        log.info("== outer tx start ==");
+        TransactionStatus outer = manager.getTransaction(new DefaultTransactionAttribute());
+        log.info("outer.isNewTx() :: {}", outer.isNewTransaction());
+
+        log.info("== inner tx start ==");
+        DefaultTransactionAttribute definition = new DefaultTransactionAttribute();
+        definition.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
+
+        TransactionStatus inner = manager.getTransaction(definition);
+        log.info("inner.isNewTx() :: {}", inner.isNewTransaction());
+
+        log.info("== inner tx rollback ==");
+        manager.rollback(inner);
+
+        log.info("== outer tx commit ==");
+        manager.commit(outer);
     }
 }
