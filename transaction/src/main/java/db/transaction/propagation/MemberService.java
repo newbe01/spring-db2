@@ -27,6 +27,7 @@ public class MemberService {
         log.info("== logRepository ed==");
     }
 
+    @Transactional
     public void joinV2(String username) {
         Member member = new Member(username);
         Log logMessage = new Log(username);

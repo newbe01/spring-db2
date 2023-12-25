@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.UnexpectedRollbackException;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -61,5 +62,27 @@ class MemberServiceTest {
 
         assertThat(memberRepository.find(username)).isPresent();
         assertThat(logRepository.find(username)).isPresent();
+    }
+
+    @Test
+    void outerTxOn_fail() {
+
+        String username = "로그예외_outerTxOn_fail";
+
+        assertThatThrownBy(() -> memberService.joinV1(username)).isInstanceOf(RuntimeException.class);
+
+        assertThat(memberRepository.find(username)).isEmpty();
+        assertThat(logRepository.find(username)).isEmpty();
+    }
+
+    @Test
+    void recoverException_fail() {
+
+        String username = "로그예외_recoverException_fail";
+
+        assertThatThrownBy(() -> memberService.joinV2(username)).isInstanceOf(UnexpectedRollbackException.class);
+
+        assertThat(memberRepository.find(username)).isEmpty();
+        assertThat(logRepository.find(username)).isEmpty();
     }
 }
