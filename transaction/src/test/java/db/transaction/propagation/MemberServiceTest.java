@@ -85,4 +85,15 @@ class MemberServiceTest {
         assertThat(memberRepository.find(username)).isEmpty();
         assertThat(logRepository.find(username)).isEmpty();
     }
+
+    @Test
+    void recoverException_success() {
+
+        String username = "로그예외_recoverException_success";
+
+        memberService.joinV2(username);
+
+        assertThat(memberRepository.find(username)).isPresent();
+        assertThat(logRepository.find(username)).isEmpty();
+    }
 }
