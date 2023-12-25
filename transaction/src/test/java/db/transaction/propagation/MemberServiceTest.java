@@ -40,4 +40,26 @@ class MemberServiceTest {
         assertThat(memberRepository.find(username)).isPresent();
         assertThat(logRepository.find(username)).isEmpty();
     }
+
+    @Test
+    void singleTx() {
+
+        String username = "outerTxOff_success";
+
+        memberService.joinV1(username);
+
+        assertThat(memberRepository.find(username)).isPresent();
+        assertThat(logRepository.find(username)).isPresent();
+    }
+
+    @Test
+    void outerTx_success() {
+
+        String username = "outerTx_success";
+
+        memberService.joinV1(username);
+
+        assertThat(memberRepository.find(username)).isPresent();
+        assertThat(logRepository.find(username)).isPresent();
+    }
 }
